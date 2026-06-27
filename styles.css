@@ -358,7 +358,7 @@ iframe {
   inset: -10px;
   /* Slight overflow to hide blur edges */
   background: url('images/intro.png') top center/cover no-repeat;
-  filter: blur(1px);
+  
   z-index: 0;
 }
 
@@ -366,7 +366,7 @@ iframe {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: transparent;
   /* shadow/overlay effect */
   z-index: 1;
 }
@@ -2901,8 +2901,8 @@ iframe {
   }
 
   .logo-img {
-    width: 72px;
-    height: 40px;
+    width: auto;
+    height: 55px;
   }
 
   .section {
@@ -2989,8 +2989,8 @@ iframe {
   }
 
   .logo-img {
-    width: 68px;
-    height: 38px;
+    width: auto;
+    height: 50px;
   }
 
   .hero {
@@ -3323,8 +3323,8 @@ iframe {
   }
 
   .logo-img {
-    width: 64px;
-    height: 34px;
+    width: auto;
+    height: 45px;
   }
 
   .hero {
