@@ -1,0 +1,1034 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Experience elite bodybuilding and fitness training at ARM Burst, Chengalpattu. Premium equipment, expert coaching near Thimmavaram, and a legacy of champions. Join the #1 unisex gym today!"
+    />
+    <title>
+      ARM Burst (UNISEX) | Best Premium Gym in Chengalpattu
+    </title>
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://your-netlify-url.netlify.app/gallery.html"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="images/logodr.png" />
+    <style>
+      /* ===== INSTAGRAM PAGE — PREMIUM STANDALONE ===== */
+
+      .insta-page-body {
+        background: #000000;
+        color: #cccccc;
+        min-height: 100vh;
+      }
+
+      /* --- Hero Banner --- */
+      .insta-hero {
+        position: relative;
+        margin-top: 100px; /* Push below navbar */
+        min-height: 500px; /* Increase height */
+        padding: 80px 24px 40px; /* Adjusted padding since it's now pushed down */
+        text-align: left;
+        overflow: hidden;
+        background-image: url("images/bg_img.png");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain; /* Use contain to ensure the full image is visible */
+      }
+
+      /* Ambient glow background */
+      .insta-hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(
+          circle,
+          rgba(150, 150, 150, 0.15) 0%,
+          rgba(100, 100, 100, 0.08) 40%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .insta-hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 70%;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      /* Instagram icon */
+      .insta-icon-wrap {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #666666, #aaaaaa, #dddddd);
+        margin-bottom: 28px;
+        box-shadow: 0 8px 40px rgba(100, 100, 100, 0.35);
+        animation: iconPulse 3s ease-in-out infinite;
+      }
+
+      .insta-icon-wrap svg {
+        width: 36px;
+        height: 36px;
+        fill: #ffffff;
+      }
+
+      @keyframes iconPulse {
+        0%,
+        100% {
+          box-shadow: 0 8px 40px rgba(100, 100, 100, 0.35);
+        }
+
+        50% {
+          box-shadow: 0 12px 60px rgba(150, 150, 150, 0.45);
+        }
+      }
+
+      /* Breadcrumb / tag */
+      .insta-top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .insta-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 50px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 20px;
+      }
+
+      .insta-tag .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #fd1d1d;
+        animation: dotBlink 2s ease-in-out infinite;
+      }
+
+      @keyframes dotBlink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .insta-hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.15;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+        text-align: center;
+      }
+
+      .insta-hero h1 .gradient-text {
+        background: linear-gradient(135deg, #cccccc, #ffffff, #999999);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .insta-hero-sub {
+        font-size: 1.05rem;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.7;
+        max-width: 500px;
+        margin: 0 auto 28px;
+      }
+
+      /* Profile badge */
+      .insta-profile-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 24px 10px 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 60px;
+        text-decoration: none;
+        transition: all 0.35s ease;
+      }
+
+      .insta-profile-badge:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(131, 58, 180, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(131, 58, 180, 0.2);
+      }
+
+      .insta-profile-badge .badge-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .insta-profile-badge .badge-avatar svg {
+        width: 20px;
+        height: 20px;
+        fill: #ffffff;
+      }
+
+      .insta-profile-badge .badge-info {
+        text-align: left;
+      }
+
+      .insta-profile-badge .badge-handle {
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: #ffffff;
+      }
+
+      .insta-profile-badge .badge-label {
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 0.5px;
+      }
+
+      /* Separator line */
+      .insta-divider {
+        max-width: 200px;
+        height: 2px;
+        margin: 0 auto 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(150, 150, 150, 0.5),
+          rgba(200, 200, 200, 0.5),
+          transparent
+        );
+        border: none;
+      }
+
+      /* --- Feed Container --- */
+      .insta-feed-section {
+        padding: 40px 24px 60px;
+      }
+
+      .insta-feed-container {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .elfsight-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .insta-feed-container .feed-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .feed-header-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .feed-header-left .live-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #00e676;
+        animation: dotBlink 1.5s ease-in-out infinite;
+      }
+
+      .feed-header-left span {
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .feed-header-right a {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.35);
+        text-decoration: none;
+        padding: 8px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        transition: all 0.3s;
+      }
+
+      .feed-header-right a:hover {
+        color: #ffffff;
+        border-color: rgba(131, 58, 180, 0.5);
+        background: rgba(131, 58, 180, 0.1);
+      }
+
+      /* --- Back to Home CTA --- */
+      .insta-back-section {
+        text-align: center;
+        padding: 20px 24px 60px;
+      }
+
+      .insta-back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 36px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+        transition: all 0.35s ease;
+      }
+
+      .insta-back-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
+      }
+
+      /* --- Responsive --- */
+      @media (max-width: 768px) {
+        .insta-hero {
+          padding: 120px 16px 30px;
+        }
+
+        .insta-hero-inner {
+          max-width: 100%;
+        }
+
+        .insta-hero-inner h1 {
+          flex-wrap: wrap;
+          gap: 12px !important;
+          font-size: clamp(1.75rem, 8vw, 2.5rem) !important;
+        }
+
+        .gallery-tabs {
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .gallery-tab {
+          padding: 12px 24px;
+          font-size: 0.9rem;
+          flex: 1 1 auto;
+          min-width: 130px;
+        }
+
+        .gallery-masonry {
+          padding: 12px;
+          gap: 16px;
+        }
+
+        .insta-feed-container {
+          padding: 16px;
+          border-radius: 16px;
+        }
+
+        .feed-header {
+          flex-direction: column;
+          gap: 12px;
+          text-align: center;
+        }
+
+        .insta-icon-wrap {
+          width: 56px;
+          height: 56px;
+          border-radius: 16px;
+        }
+
+        .insta-icon-wrap svg {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .insta-hero {
+          padding: 100px 12px 24px;
+        }
+
+        .gallery-tab {
+          padding: 10px 18px;
+          font-size: 0.82rem;
+          min-width: 0;
+        }
+
+        .secret-shield {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      /* Secret Shield Styles */
+      .secret-shield {
+        width: 40px;
+        height: 40px;
+        color: rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .secret-shield:hover {
+        color: rgba(255, 255, 255, 1);
+      }
+
+      .desktop-shield {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
+      }
+      @media (max-width: 768px) {
+        .desktop-shield {
+          display: none;
+        }
+      }
+
+      .mobile-shield {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        .mobile-shield {
+          display: flex;
+          margin-top: 20px;
+          justify-content: center;
+        }
+      }
+
+      .passkey-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+      }
+
+      .passkey-modal.active {
+        display: flex;
+      }
+
+      .passkey-container input {
+        background: #111;
+        border: 2px solid var(--gold);
+        color: var(--gold);
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        border-radius: 8px;
+        outline: none;
+        text-align: center;
+        letter-spacing: 5px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+
+  <body class="insta-page-body">
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="close-menu" id="closeMenu">✕</button>
+      <a href="index.html#home" onclick="closeMobile()">Home</a>
+      <a href="index.html#about" onclick="closeMobile()">About</a>
+      <a href="index.html#infrastructure" onclick="closeMobile()">Facilities</a>
+      <a href="gallery.html" class="active" onclick="closeMobile()">Gallery</a>
+      <a href="index.html#reviews" onclick="closeMobile()">Reviews</a>
+      <a href="index.html#instagram" onclick="closeMobile()">Instagram</a>
+      <a href="index.html#contact" onclick="closeMobile()">Contact</a>
+      <!-- ===== SECRET SHIELD ENTRANCE (MOBILE) ===== -->
+      <div class="secret-shield mobile-shield" title="Authorized Personnel Only">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <!-- ===== SECRET SHIELD ENTRANCE (DESKTOP) ===== -->
+      <div class="secret-shield desktop-shield" title="Authorized Personnel Only">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      </div>
+      <a href="index.html#home" class="logo">
+        <img
+          src="images/l1.png"
+          alt="ARM Burst Logo"
+          class="logo-img"
+        />
+        <span class="logo-text">ARM <span class="gold">Burst</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#infrastructure">Facilities</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="index.html#reviews">Reviews</a></li>
+        <li><a href="index.html#instagram">Instagram</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="index.html#contact" class="nav-cta">Join Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- ===== GALLERY SECTION ===== -->
+    <section class="insta-hero">
+      <div
+        class="insta-hero-inner"
+        style="display: flex; justify-content: center; align-items: center"
+      >
+        <h1
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
+            margin: 0;
+          "
+        >
+          <span class="gradient-text"></span>
+        </h1>
+      </div>
+
+      <!-- Passkey Modal for Shield -->
+      <div id="passkey-modal" class="passkey-modal">
+        <div class="passkey-container">
+          <input
+            type="password"
+            id="passkey-input"
+            placeholder="Enter Access Code"
+          />
+        </div>
+      </div>
+    </section>
+
+    <hr class="insta-divider" />
+
+    <section
+      style="
+        padding: 40px 24px 60px;
+        max-width: 1400px;
+        margin: 0 auto;
+        color: #cccccc;
+      "
+    >
+      <div class="reveal" style="text-align: center; margin-bottom: 48px">
+        <p
+          class="section-subtitle"
+          style="
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.7);
+          "
+        >
+          Experience the intensity and dedication inside ARM Burst through our
+          constantly updated live gallery.
+        </p>
+      </div>
+
+      <!-- ===== TAB BUTTONS ===== -->
+      <div class="gallery-tabs">
+        <button
+          class="gallery-tab active"
+          id="tabPhotos"
+          onclick="switchTab('photos')"
+        >
+          📸 Photos
+        </button>
+        <button
+          class="gallery-tab"
+          id="tabVideos"
+          onclick="switchTab('videos')"
+        >
+          🎬 Videos
+        </button>
+      </div>
+
+      <!-- Shared loader -->
+      <div id="gallery-loader" class="gallery-loader-msg" style="display: none">
+        Loading...
+      </div>
+
+      <!-- Photos Grid (visible by default) -->
+      <div
+        class="gallery-masonry gallery-panel active"
+        id="photo-gallery"
+      ></div>
+
+      <!-- Videos Grid (hidden by default) -->
+      <div class="gallery-masonry gallery-panel" id="video-gallery"></div>
+
+      <style>
+        .gallery-tabs {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+          margin-bottom: 32px;
+        }
+
+        .gallery-tab {
+          padding: 14px 36px;
+          border: 2px solid rgba(255, 255, 255, 0.12);
+          border-radius: 50px;
+          background: #1a1a1a;
+          color: #ffffff;
+          font-family: "Inter", sans-serif;
+          font-weight: 700;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          letter-spacing: 0.5px;
+        }
+
+        .gallery-tab:hover {
+          border-color: #ffffff;
+          background: #333333;
+        }
+
+        .gallery-tab.active {
+          background: #ffffff;
+          color: #000000;
+          border-color: #ffffff;
+          box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .gallery-panel {
+          display: none;
+        }
+
+        .gallery-panel.active {
+          display: grid;
+        }
+
+        .gallery-loader-msg {
+          text-align: center;
+          color: #cccccc;
+          padding: 20px;
+          font-weight: 500;
+        }
+
+        .gallery-masonry {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          padding: 12px;
+        }
+
+        @media (min-width: 768px) {
+          .gallery-masonry {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+
+        .gallery-item-card {
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+          transition: all 0.3s ease;
+          position: relative;
+          background: #222222;
+          aspect-ratio: 4/3;
+        }
+
+        .gallery-item-card:hover {
+          transform: translateY(-5px) scale(1.02);
+          box-shadow: 0 8px 25px rgba(200, 200, 200, 0.2);
+          z-index: 2;
+        }
+
+        .gallery-item-card img,
+        .gallery-item-card video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .gallery-empty {
+          text-align: center;
+          grid-column: 1 / -1;
+          color: rgba(255, 255, 255, 0.4);
+          padding: 40px 20px;
+          font-size: 0.95rem;
+        }
+
+        .gallery-empty .empty-icon {
+          font-size: 2.5rem;
+          margin-bottom: 12px;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.92);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          z-index: 10001;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          cursor: zoom-out;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .lightbox-overlay.active {
+          display: flex;
+          opacity: 1;
+        }
+
+        .lightbox-overlay img {
+          max-width: 90vw;
+          max-height: 90vh;
+          object-fit: contain;
+          border-radius: 12px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+          animation: lightboxZoom 0.3s ease;
+        }
+
+        @keyframes lightboxZoom {
+          from {
+            transform: scale(0.85);
+            opacity: 0;
+          }
+
+          to {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        .lightbox-close {
+          position: absolute;
+          top: 20px;
+          right: 28px;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #fff;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          font-size: 1.5rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s;
+          z-index: 10002;
+        }
+
+        .lightbox-close:hover {
+          background: rgba(255, 255, 255, 0.25);
+          transform: rotate(90deg);
+        }
+
+        .gallery-item-card img {
+          cursor: zoom-in;
+        }
+      </style>
+
+      <script>
+        // Lightbox functions
+        function openLightbox(src) {
+          const overlay = document.getElementById("lightbox");
+          const img = document.getElementById("lightbox-img");
+          img.src = src;
+          overlay.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeLightbox() {
+          const overlay = document.getElementById("lightbox");
+          overlay.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const lightbox = document.getElementById("lightbox");
+          const closeBtn = document.getElementById("lightbox-close");
+
+          closeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeLightbox();
+          });
+
+          lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) closeLightbox();
+          });
+
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeLightbox();
+          });
+        });
+
+        function switchTab(tab) {
+          const tabPhotos = document.getElementById("tabPhotos");
+          const tabVideos = document.getElementById("tabVideos");
+          const photoPanel = document.getElementById("photo-gallery");
+          const videoPanel = document.getElementById("video-gallery");
+
+          if (tab === "photos") {
+            tabPhotos.classList.add("active");
+            tabVideos.classList.remove("active");
+            photoPanel.classList.add("active");
+            videoPanel.classList.remove("active");
+          } else {
+            tabVideos.classList.add("active");
+            tabPhotos.classList.remove("active");
+            videoPanel.classList.add("active");
+            photoPanel.classList.remove("active");
+          }
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+          const photoGallery = document.getElementById("photo-gallery");
+          const videoGallery = document.getElementById("video-gallery");
+          const loader = document.getElementById("gallery-loader");
+
+          try {
+            loader.style.display = "block";
+
+            const cloudName = "YOUR_CLOUD_NAME_HERE";
+            const tag = "gym_gallery";
+            const imageListUrl = `https://res.cloudinary.com/${cloudName}/image/list/${tag}.json`;
+            const videoListUrl = `https://res.cloudinary.com/${cloudName}/video/list/${tag}.json`;
+
+            let imageResources = [];
+            let videoResources = [];
+
+            try {
+              const imageRes = await fetch(imageListUrl);
+              if (imageRes.ok) {
+                const data = await imageRes.json();
+                imageResources = data.resources || [];
+              }
+            } catch (e) {
+              console.error("Image list fetch skipped/errored", e);
+            }
+
+            try {
+              const videoRes = await fetch(videoListUrl);
+              if (videoRes.ok) {
+                const data = await videoRes.json();
+                videoResources = data.resources || [];
+              }
+            } catch (e) {
+              console.error("Video list fetch skipped/errored", e);
+            }
+
+            loader.style.display = "none";
+
+            let allMedia = [...imageResources, ...videoResources];
+
+            // Sort newest to oldest
+            allMedia.sort(
+              (a, b) => new Date(b.created_at) - new Date(a.created_at),
+            );
+
+            if (allMedia.length === 0) {
+              photoGallery.innerHTML =
+                '<div class="gallery-empty"><div class="empty-icon">📷</div><p>No photos available yet.</p></div>';
+              videoGallery.innerHTML =
+                '<div class="gallery-empty"><div class="empty-icon">🎥</div><p>No videos available yet.</p></div>';
+              return;
+            }
+
+            const videoFormats = ["mp4", "mov", "webm"];
+            let photoCount = 0;
+            let videoCount = 0;
+
+            allMedia.forEach((resource) => {
+              const card = document.createElement("div");
+              card.className = "gallery-item-card";
+              const isVideo = videoFormats.includes(resource.format);
+
+              if (isVideo) {
+                const videoUrl = `https://res.cloudinary.com/${cloudName}/video/upload/f_auto,q_auto/v${resource.version}/${resource.public_id}.${resource.format}`;
+                const video = document.createElement("video");
+                video.src = videoUrl;
+                video.controls = true;
+                video.muted = true;
+                video.loop = true;
+                video.playsInline = true;
+                video.preload = "metadata";
+                card.appendChild(video);
+                videoGallery.appendChild(card);
+                videoCount++;
+              } else {
+                const imgUrl = `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto/v${resource.version}/${resource.public_id}.${resource.format}`;
+                const img = document.createElement("img");
+                img.src = imgUrl;
+                img.alt = "ARM Burst Gym Moment";
+                img.loading = "lazy";
+                img.addEventListener("click", () => openLightbox(imgUrl));
+                card.appendChild(img);
+                photoGallery.appendChild(card);
+                photoCount++;
+              }
+            });
+
+            if (photoCount === 0) {
+              photoGallery.innerHTML =
+                '<div class="gallery-empty"><div class="empty-icon">📷</div><p>No photos available yet.</p></div>';
+            }
+            if (videoCount === 0) {
+              videoGallery.innerHTML =
+                '<div class="gallery-empty"><div class="empty-icon">🎥</div><p>No videos available yet.</p></div>';
+            }
+          } catch (error) {
+            console.error(error);
+            loader.style.display = "none";
+            photoGallery.innerHTML =
+              '<div class="gallery-empty"><div class="empty-icon">⚠️</div><p>Unable to load photos at this time.</p></div>';
+            videoGallery.innerHTML =
+              '<div class="gallery-empty"><div class="empty-icon">⚠️</div><p>Unable to load videos at this time.</p></div>';
+          }
+        });
+      </script>
+    </section>
+
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+      <button class="lightbox-close" id="lightbox-close">✕</button>
+      <img id="lightbox-img" src="" alt="Full view" />
+    </div>
+
+    <!-- Back to Site -->
+    <div class="insta-back-section">
+      <a href="index.html" class="insta-back-btn"> ← Back to Home </a>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+            <footer class="footer" style="padding: 40px 20px 20px; text-align: center; background: #000;">
+      <div class="footer-top" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 20px;">
+        <a href="index.html#home" class="logo" style="justify-content: center; text-decoration: none;">
+          <span class="logo-text" style="color: red !important;">ARM <span class="gold" style="color: red !important;">Burst</span></span>
+        </a>
+        <div style="color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.8;">
+          <p style="margin:0;">📍 Thimmavaram, Devaki Nagar, Palur, Tamil Nadu 603101</p>
+          <p style="margin:0;">📞 +91 97860 95401</p>
+          <p style="margin:0;">✉️ armburstgym@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom" style="display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; color: rgba(255,255,255,0.4);">
+        <div class="footer-socials" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 10px;">
+          <a href="#" target="_blank" aria-label="Instagram" style="color: #fff; text-decoration: none;">📷</a>
+          <a href="#" aria-label="YouTube" style="color: #fff; text-decoration: none;">▶</a>
+          <a href="#" aria-label="Facebook" style="color: #fff; text-decoration: none;">f</a>
+          <a href="#" aria-label="Twitter" style="color: #fff; text-decoration: none;">𝕏</a>
+        </div>
+        <span>© 2026 ARM Burst. All rights reserved.</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      // Secret Entry Logic
+      const shields = document.querySelectorAll(".secret-shield");
+      const modal = document.getElementById("passkey-modal");
+      const passkeyInput = document.getElementById("passkey-input");
+
+      if (shields.length > 0 && modal && passkeyInput) {
+        let clickCount = 0;
+        let clickTimer = null;
+
+        shields.forEach((shield) => {
+          shield.addEventListener("click", () => {
+            clickCount++;
+
+            if (clickCount === 1) {
+              clickTimer = setTimeout(() => {
+                clickCount = 0; // Reset after 1.5s
+              }, 1500);
+            }
+
+            if (clickCount === 3) {
+              clearTimeout(clickTimer);
+              clickCount = 0;
+              modal.classList.add("active");
+              passkeyInput.focus();
+            }
+          });
+        });
+
+        passkeyInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            if (passkeyInput.value === "111") {
+              sessionStorage.setItem("adminAuth", "true");
+              window.location.href = "admin.html";
+            } else {
+              alert("Access Denied");
+              modal.classList.remove("active");
+              passkeyInput.value = "";
+            }
+          }
+        });
+
+        // Close modal on outside click
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.remove("active");
+            passkeyInput.value = "";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
