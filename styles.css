@@ -349,7 +349,7 @@ iframe {
   align-items: center;
   text-align: center;
   position: relative;
-  background: #000;
+  background: #ffffff;
   overflow: hidden;
 }
 
@@ -378,6 +378,7 @@ iframe {
   flex-direction: column;
   align-items: center;
   max-width: 800px;
+  margin-top: auto;
 }
 
 .hero-badge {
@@ -3626,4 +3627,10 @@ iframe {
 .hero::before {
   width: 0;
   height: 0;
+}
+@media (max-width: 768px) {
+  .hero-bg {
+    background-position: center 10%;
+    background-size: 180% auto;
+  }
 }
