@@ -4,5 +4,3 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
-# Sitemap location
-Sitemap: https://dr-dino-gym.netlify.app/sitemap.xml
