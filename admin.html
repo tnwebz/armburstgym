@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Upload — ARM Burst</title>
+    <title>Admin Upload — ARMBURST GYM</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -363,14 +363,15 @@
     <!-- Upload Section -->
     <div class="admin-container">
       <div class="admin-logo">
-        <img src="images/l1.png" alt="ARM Burst" />
+        <img src="images/l1.png" alt="ARMBURST GYM" />
       </div>
       <h1>Admin Media Upload</h1>
       <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: 30px">
         Upload images and videos directly to the public gallery.
       </p>
 
-      <button id="upload_widget" class="upload-btn">Upload Media</button>
+      <button id="custom_upload_btn" class="upload-btn">Upload Media</button>
+      <input type="file" id="mediaInput" multiple accept="image/*,video/*" style="display:none;" />
 
       <div id="success-msg">✅ Media uploaded successfully!</div>
 
@@ -423,266 +424,375 @@
     <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
-    <script
-      src="https://upload-widget.cloudinary.com/global/all.js"
-      type="text/javascript"
-    ></script>
+    
+    <!-- Firebase SDKs -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    <script type="text/javascript">
-      const CLOUD_NAME = "YOUR_CLOUD_NAME_HERE";
-      const TAG = "gym_gallery";
+      // TODO: Replace with your actual Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyCGfLqqpSlet-jUtvQIGNwRFCR24iHhOUw",
+        authDomain: "armburst-7c92c.firebaseapp.com",
+        projectId: "armburst-7c92c",
+        storageBucket: "armburst-7c92c.firebasestorage.app",
+        messagingSenderId: "365920014049",
+        appId: "1:365920014049:web:7dd3e1923dd66d04d471a0"
+      };
 
-      // === Upload Widget ===
-      var myWidget = cloudinary.createUploadWidget(
-        {
-          cloudName: CLOUD_NAME,
-          uploadPreset: "YOUR_UPLOAD_PRESET_HERE",
-          folder: "gallery",
-          tags: ["gym_gallery"],
-          multiple: true,
-          resourceType: "auto",
-          clientAllowedFormats: ["png", "jpg", "jpeg", "mp4", "mov", "webm"],
-        },
-        (error, result) => {
-          if (!error && result && result.event === "success") {
-            document.getElementById("success-msg").style.display = "block";
-            document.getElementById("gallery-link").style.display =
-              "inline-block";
-            setTimeout(() => {
-              document.getElementById("success-msg").style.display = "none";
-            }, 5000);
-          }
-          // Refresh gallery when widget closes after upload
-          if (result && result.event === "close") {
-            loadMedia();
-          }
-        },
-      );
+      let db;
+      try {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+      } catch (e) {
+        console.warn('Firebase not configured yet. Using localStorage fallback.');
+      }
 
-      document.getElementById("upload_widget").addEventListener(
-        "click",
-        function () {
-          myWidget.open();
-        },
-        false,
-      );
+      const CLOUD_NAME = "mk5zjnak";
+      const UPLOAD_PRESET = "ml_default"; // Change to your unsigned upload preset
+
+      const uploadBtn = document.getElementById('custom_upload_btn');
+      const fileInput = document.getElementById('mediaInput');
+      const successMsg = document.getElementById('success-msg');
+      const galleryLink = document.getElementById('gallery-link');
+      const grid = document.getElementById('mediaGrid');
+      const countBadge = document.getElementById('mediaCount');
+      const countNumber = document.getElementById('countNumber');
 
       // === Toast Notification ===
       function showToast(message, type = "success") {
         const toast = document.getElementById("toast");
         toast.textContent = message;
         toast.className = `toast ${type}`;
-        // force reflow
         toast.offsetHeight;
         toast.classList.add("show");
-        setTimeout(() => {
-          toast.classList.remove("show");
-        }, 3000);
+        setTimeout(() => toast.classList.remove("show"), 3000);
       }
 
-      // === Load Media from Cloudinary ===
-      let allMedia = [];
+      // === Upload Logic ===
+      uploadBtn.addEventListener('click', () => fileInput.click());
 
-      async function loadMedia() {
-        const grid = document.getElementById("mediaGrid");
-        const countBadge = document.getElementById("mediaCount");
-        const countNumber = document.getElementById("countNumber");
+      fileInput.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
 
-        grid.innerHTML = `
-        <div class="media-loader" style="grid-column: 1 / -1;">
-          <div class="spinner"></div>
-          <div>Loading gallery media...</div>
-        </div>
-      `;
+        const images = files.filter(f => f.type.startsWith('image/'));
+        const videos = files.filter(f => f.type.startsWith('video/'));
+
+        if (images.length > 3) {
+          showToast('❌ Max 3 images allowed at a time.', 'error');
+          fileInput.value = '';
+          return;
+        }
+
+        if (videos.length > 1) {
+          showToast('❌ Max 1 video allowed at a time.', 'error');
+          fileInput.value = '';
+          return;
+        }
+
+        let processedVideo = videos.length === 1 ? videos[0] : null;
+        if (processedVideo && processedVideo.size > 10 * 1024 * 1024) {
+          showToast('⏳ Video > 10MB. Compressing in browser...', 'success');
+          try {
+            processedVideo = await compressVideo(processedVideo, 10 * 1024 * 1024);
+          } catch (err) {
+            console.error('Video compression failed:', err);
+            showToast('❌ Video compression failed. Try a smaller file.', 'error');
+            fileInput.value = '';
+            uploadBtn.textContent = 'Upload Media';
+            uploadBtn.disabled = false;
+            return;
+          }
+        }
+
+        uploadBtn.textContent = 'Uploading...';
+        uploadBtn.disabled = true;
 
         try {
-          const listUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/list/${TAG}.json`;
-          const response = await fetch(listUrl);
+          for (let img of images) {
+            let processedFile = img;
+            if (img.size > 300 * 1024) {
+              processedFile = await compressImage(img, 300 * 1024);
+            }
+            await uploadToCloudinary(processedFile, 'image');
+          }
 
-          if (!response.ok) throw new Error("Failed to fetch");
+          if (processedVideo) {
+            await uploadToCloudinary(processedVideo, 'video');
+          }
 
-          const data = await response.json();
-          allMedia = data.resources || [];
+          successMsg.style.display = 'block';
+          galleryLink.style.display = 'inline-block';
+          setTimeout(() => successMsg.style.display = 'none', 5000);
+          
+          loadMedia();
+        } catch (error) {
+          console.error(error);
+          showToast('❌ Upload failed.', 'error');
+        } finally {
+          uploadBtn.textContent = 'Upload Media';
+          uploadBtn.disabled = false;
+          fileInput.value = '';
+        }
+      });
 
+      
+      // Compress Video using MediaRecorder and Canvas
+      function compressVideo(file, targetSizeInBytes) {
+        return new Promise((resolve, reject) => {
+          const video = document.createElement('video');
+          video.src = URL.createObjectURL(file);
+          video.muted = true;
+          video.playsInline = true;
+          
+          video.onloadedmetadata = () => {
+            const duration = video.duration;
+            if (!duration || !isFinite(duration)) {
+               return reject(new Error('Invalid video duration'));
+            }
+            
+            let targetBitrate = Math.floor((targetSizeInBytes * 8 * 0.9) / duration);
+            if (targetBitrate < 500000) targetBitrate = 500000;
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            let width = video.videoWidth;
+            let height = video.videoHeight;
+            const MAX_DIM = 720;
+            if (width > MAX_DIM || height > MAX_DIM) {
+              if (width > height) {
+                height = Math.floor(height * (MAX_DIM / width));
+                width = MAX_DIM;
+              } else {
+                width = Math.floor(width * (MAX_DIM / height));
+                height = MAX_DIM;
+              }
+            }
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            let stream;
+            try {
+              stream = canvas.captureStream(30);
+            } catch (e) {
+              return reject(e);
+            }
+            
+            let options = { mimeType: 'video/webm; codecs=vp9' };
+            if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+              options = { mimeType: 'video/webm; codecs=vp8' };
+              if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                options = { mimeType: 'video/webm' };
+              }
+            }
+            options.videoBitsPerSecond = targetBitrate;
+            
+            let recorder;
+            try {
+              recorder = new MediaRecorder(stream, options);
+            } catch (e) {
+              return reject(e);
+            }
+            
+            const chunks = [];
+            recorder.ondataavailable = e => {
+              if (e.data.size > 0) chunks.push(e.data);
+            };
+            
+            recorder.onstop = () => {
+              const compressedBlob = new Blob(chunks, { type: options.mimeType || 'video/webm' });
+              const compressedFile = new File([compressedBlob], file.name.split('.')[0] + '.webm', { type: options.mimeType || 'video/webm' });
+              URL.revokeObjectURL(video.src);
+              resolve(compressedFile);
+            };
+            
+            video.onplay = () => {
+              const fps = 30;
+              const interval = 1000 / fps;
+              const drawFrame = () => {
+                if (video.paused || video.ended) return;
+                ctx.drawImage(video, 0, 0, width, height);
+                setTimeout(drawFrame, interval);
+              };
+              drawFrame();
+            };
+            
+            video.onended = () => {
+              recorder.stop();
+            };
+            
+            recorder.start();
+            video.play().catch(reject);
+          };
+          
+          video.onerror = reject;
+        });
+      }
+
+      // Compress Image using Canvas
+      function compressImage(file, maxSize) {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              const maxWidth = 1200; // Resize large images
+              const scaleSize = maxWidth / img.width;
+              canvas.width = maxWidth;
+              canvas.height = img.height * scaleSize;
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              
+              let quality = 0.8;
+              const recursivelyCompress = (q) => {
+                canvas.toBlob((blob) => {
+                  if (blob.size <= maxSize || q <= 0.2) {
+                    resolve(new File([blob], file.name, { type: 'image/jpeg' }));
+                  } else {
+                    recursivelyCompress(q - 0.2);
+                  }
+                }, 'image/jpeg', q);
+              };
+              recursivelyCompress(quality);
+            };
+          };
+        });
+      }
+
+      // Upload to Cloudinary Unsigned
+      async function uploadToCloudinary(file, resourceType) {
+        const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('upload_preset', UPLOAD_PRESET);
+        
+        const res = await fetch(url, { method: 'POST', body: fd });
+        const data = await res.json();
+        
+        if (data.secure_url) {
+          await saveToDatabase({
+            public_id: data.public_id,
+            secure_url: data.secure_url,
+            resource_type: resourceType,
+            format: data.format,
+            created_at: new Date().toISOString()
+          });
+        }
+      }
+
+      // === Database Mock / Firebase ===
+      async function saveToDatabase(mediaData) {
+        if (db) {
+          await addDoc(collection(db, 'gallery'), mediaData);
+        } else {
+          let gallery = JSON.parse(localStorage.getItem('gym_gallery') || '[]');
+          gallery.push(mediaData);
+          localStorage.setItem('gym_gallery', JSON.stringify(gallery));
+        }
+      }
+
+      async function fetchFromDatabase() {
+        if (db) {
+          const q = query(collection(db, 'gallery'), orderBy('created_at', 'desc'));
+          const snapshot = await getDocs(q);
+          return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        } else {
+          return JSON.parse(localStorage.getItem('gym_gallery') || '[]').reverse();
+        }
+      }
+      
+      async function deleteFromDatabase(id) {
+        if (db) {
+          await deleteDoc(doc(db, 'gallery', id));
+        } else {
+          let gallery = JSON.parse(localStorage.getItem('gym_gallery') || '[]');
+          gallery = gallery.filter(g => g.public_id !== id && g.id !== id);
+          localStorage.setItem('gym_gallery', JSON.stringify(gallery));
+        }
+      }
+
+      // === Load Media ===
+      async function loadMedia() {
+        grid.innerHTML = '<div class="media-loader" style="grid-column: 1 / -1;"><div class="spinner"></div><div>Loading gallery media...</div></div>';
+        try {
+          const allMedia = await fetchFromDatabase();
           if (allMedia.length === 0) {
-            grid.innerHTML = `
-            <div class="media-empty" style="grid-column: 1 / -1;">
-              <div class="empty-icon">📭</div>
-              <p>No media in the gallery yet.<br>Upload some photos to get started!</p>
-            </div>
-          `;
+            grid.innerHTML = '<div class="media-empty" style="grid-column: 1 / -1;"><div class="empty-icon">📭</div><p>No media in the gallery yet.</p></div>';
             countBadge.style.display = "none";
             return;
           }
 
           countNumber.textContent = allMedia.length;
           countBadge.style.display = "inline-flex";
-
           grid.innerHTML = "";
 
           allMedia.forEach((resource) => {
             const card = document.createElement("div");
             card.className = "media-card";
-            card.dataset.publicId = resource.public_id;
-
-            const isVideo =
-              resource.format === "mp4" ||
-              resource.format === "mov" ||
-              resource.format === "webm";
-            const resourceType = isVideo ? "video" : "image";
-            card.dataset.resourceType = resourceType;
-
+            
+            const isVideo = resource.resource_type === 'video';
+            const dbId = resource.id || resource.public_id;
+            
             if (isVideo) {
-              const videoUrl = `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/vc_auto,sp_auto/v${resource.version}/${resource.public_id}.${resource.format}`;
               card.innerHTML = `
-              <video src="${videoUrl}" muted loop playsinline></video>
-              <div class="delete-overlay">
-                <button class="delete-btn" onclick="confirmDelete('${resource.public_id}', '${resourceType}', this)">
-                  🗑️ Delete
-                </button>
-              </div>
-            `;
+                <video src="${resource.secure_url}" muted loop playsinline></video>
+                <div class="delete-overlay">
+                  <button class="delete-btn" data-id="${dbId}">🗑️ Delete</button>
+                </div>
+              `;
             } else {
-              const imgUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_400/v${resource.version}/${resource.public_id}.${resource.format}`;
               card.innerHTML = `
-              <img src="${imgUrl}" alt="Gallery media" loading="lazy">
-              <div class="delete-overlay">
-                <button class="delete-btn" onclick="confirmDelete('${resource.public_id}', '${resourceType}', this)">
-                  🗑️ Delete
-                </button>
-              </div>
-            `;
+                <img src="${resource.secure_url}" alt="Gallery media" loading="lazy">
+                <div class="delete-overlay">
+                  <button class="delete-btn" data-id="${dbId}">🗑️ Delete</button>
+                </div>
+              `;
             }
-
             grid.appendChild(card);
           });
+          
+          document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => confirmDelete(e.target.dataset.id, e.target));
+          });
+
         } catch (error) {
-          console.error("Error loading media:", error);
-          grid.innerHTML = `
-          <div class="media-empty" style="grid-column: 1 / -1;">
-            <div class="empty-icon">⚠️</div>
-            <p>Unable to load gallery media.<br>Please check your connection and try again.</p>
-          </div>
-        `;
+          console.error(error);
         }
       }
 
       // === Delete Confirmation ===
-      let pendingDelete = {
-        publicId: null,
-        resourceType: null,
-        buttonEl: null,
-      };
+      let pendingDeleteId = null;
+      let pendingDeleteBtn = null;
 
-      function confirmDelete(publicId, resourceType, btnEl) {
-        pendingDelete = { publicId, resourceType, buttonEl: btnEl };
+      function confirmDelete(id, btn) {
+        pendingDeleteId = id;
+        pendingDeleteBtn = btn;
         document.getElementById("confirmModal").classList.add("active");
       }
 
-      document
-        .getElementById("cancelDeleteBtn")
-        .addEventListener("click", () => {
-          document.getElementById("confirmModal").classList.remove("active");
-          pendingDelete = {
-            publicId: null,
-            resourceType: null,
-            buttonEl: null,
-          };
-        });
-
-      // Close modal on background click
-      document.getElementById("confirmModal").addEventListener("click", (e) => {
-        if (e.target === document.getElementById("confirmModal")) {
-          document.getElementById("confirmModal").classList.remove("active");
-          pendingDelete = {
-            publicId: null,
-            resourceType: null,
-            buttonEl: null,
-          };
-        }
+      document.getElementById("cancelDeleteBtn").addEventListener("click", () => {
+        document.getElementById("confirmModal").classList.remove("active");
       });
 
-      document
-        .getElementById("confirmDeleteBtn")
-        .addEventListener("click", async () => {
-          const { publicId, resourceType, buttonEl } = pendingDelete;
-          if (!publicId) return;
+      document.getElementById("confirmDeleteBtn").addEventListener("click", async () => {
+        if (!pendingDeleteId) return;
+        document.getElementById("confirmModal").classList.remove("active");
+        
+        pendingDeleteBtn.textContent = 'Deleting...';
+        await deleteFromDatabase(pendingDeleteId);
+        showToast('✅ Media deleted from database.', 'success');
+        loadMedia();
+      });
 
-          // Close modal
-          document.getElementById("confirmModal").classList.remove("active");
-
-          // Update button state
-          if (buttonEl) {
-            buttonEl.textContent = "Deleting...";
-            buttonEl.classList.add("deleting");
-            buttonEl.disabled = true;
-          }
-
-          try {
-            const response = await fetch("/.netlify/functions/delete-media", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                public_id: publicId,
-                resource_type: resourceType,
-              }),
-            });
-
-            const result = await response.json();
-
-            if (response.ok && result.success) {
-              // Remove card with animation
-              const card = buttonEl.closest(".media-card");
-              card.style.transition = "all 0.4s ease";
-              card.style.transform = "scale(0.8)";
-              card.style.opacity = "0";
-
-              setTimeout(() => {
-                card.remove();
-                // Update count
-                const remaining =
-                  document.querySelectorAll(".media-card").length;
-                const countNumber = document.getElementById("countNumber");
-                countNumber.textContent = remaining;
-                if (remaining === 0) {
-                  document.getElementById("mediaCount").style.display = "none";
-                  document.getElementById("mediaGrid").innerHTML = `
-                <div class="media-empty" style="grid-column: 1 / -1;">
-                  <div class="empty-icon">📭</div>
-                  <p>No media in the gallery yet.<br>Upload some photos to get started!</p>
-                </div>
-              `;
-                }
-              }, 400);
-
-              showToast("✅ Media deleted successfully!", "success");
-            } else {
-              showToast(`❌ ${result.error || "Delete failed"}`, "error");
-              if (buttonEl) {
-                buttonEl.textContent = "🗑️ Delete";
-                buttonEl.classList.remove("deleting");
-                buttonEl.disabled = false;
-              }
-            }
-          } catch (error) {
-            console.error("Delete error:", error);
-            showToast("❌ Network error. Please try again.", "error");
-            if (buttonEl) {
-              buttonEl.textContent = "🗑️ Delete";
-              buttonEl.classList.remove("deleting");
-              buttonEl.disabled = false;
-            }
-          }
-
-          pendingDelete = {
-            publicId: null,
-            resourceType: null,
-            buttonEl: null,
-          };
-        });
-
-      // Load media on page load
+      document.getElementById('refreshBtn').addEventListener('click', loadMedia);
+      
       document.addEventListener("DOMContentLoaded", loadMedia);
     </script>
-  </body>
+</body>
 </html>

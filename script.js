@@ -1,4 +1,4 @@
-// ===== ARM Burst — Script =====
+// ===== ARMBURST GYM — Script =====
 
 // ===== PRELOADER =====
 window.addEventListener("load", () => {
@@ -231,7 +231,7 @@ if (contactForm) {
 
     setTimeout(() => {
       // The Formatting
-      const waMessage = `🦖 ARM Burst GYM INQUIRY\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n✉️ Email: ${email}\n🏋️ Interest: ${interest}\n🎯 Goal: ${message}`;
+      const waMessage = `🦖 ARMBURST GYM GYM INQUIRY\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n✉️ Email: ${email}\n🏋️ Interest: ${interest}\n🎯 Goal: ${message}`;
       const encodedMessage = encodeURIComponent(waMessage);
 
       // The Redirection
@@ -312,13 +312,13 @@ function initFoundersCarousel() {
       name: "Mr Owner",
       role: "Founder & Head Coach",
       quote:
-        "A dedicated fitness professional with a vision to revolutionize the training experience. With over a decade of mastery in bodybuilding and nutrition, he has laid the foundation for ARM Burst's elite standards.",
+        "A dedicated fitness professional with a vision to revolutionize the training experience. With over a decade of mastery in bodybuilding and nutrition, he has laid the foundation for ARMBURST GYM's elite standards.",
     },
     {
       name: "The Strategist",
       role: "Founder & Strategic Lead",
       quote:
-        "Driving the strategic growth and excellence of ARM Burst. His commitment to providing a world-class environment ensures that every athlete has the tools needed to surpass their own limits.",
+        "Driving the strategic growth and excellence of ARMBURST GYM. His commitment to providing a world-class environment ensures that every athlete has the tools needed to surpass their own limits.",
     },
   ];
 
@@ -373,8 +373,9 @@ function initFoundersCarousel() {
       const span = document.createElement("span");
       span.className = "quote-word";
       span.style.animationDelay = `${0.025 * i}s`;
-      span.textContent = `${word} `;
+      span.textContent = word;
       quoteEl.appendChild(span);
+      quoteEl.appendChild(document.createTextNode(" "));
     });
   }
 
@@ -683,3 +684,41 @@ const shimmerObserver = new IntersectionObserver(
   { threshold: 0.5 },
 );
 sectionTitles.forEach((el) => shimmerObserver.observe(el));
+
+// ===== ADMIN ACCESS =====
+function initAdminShield() {
+  const shields = document.querySelectorAll('#adminShieldDesktop, #adminShieldMobile');
+  
+  shields.forEach(shield => {
+    let tapCount = 0;
+    let tapTimer;
+    
+    shield.addEventListener('click', (e) => {
+      e.preventDefault();
+      tapCount++;
+      
+      if (tapCount === 1) {
+        tapTimer = setTimeout(() => {
+          tapCount = 0;
+        }, 1500);
+      }
+      
+      if (tapCount === 3) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        
+        const passkey = prompt("Enter Admin Passkey:");
+        if (passkey === '111') {
+          shields.forEach(s => s.classList.add('unlocked'));
+          setTimeout(() => {
+            window.location.href = 'admin.html';
+          }, 500);
+        } else if (passkey !== null) {
+          alert('Incorrect passkey.');
+        }
+      }
+    });
+  });
+}
+
+initAdminShield();

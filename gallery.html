@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -498,6 +498,9 @@
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
+      <div class="admin-shield desktop-shield" id="adminShieldDesktop" title="Admin Access">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      </div>
       <!-- ===== SECRET SHIELD ENTRANCE (DESKTOP) ===== -->
       <div class="secret-shield desktop-shield" title="Authorized Personnel Only">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -520,6 +523,10 @@
         <li><a href="index.html#reviews">Reviews</a></li>
         <li><a href="index.html#instagram">Instagram</a></li>
         <li><a href="index.html#contact">Contact</a></li>
+      
+        <li class="admin-shield-mobile"><a href="#" id="adminShieldMobile" title="Admin Access">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Admin Access
+        </a></li>
       </ul>
       <a href="index.html#contact" class="nav-cta">Join Now</a>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
@@ -844,65 +851,56 @@
 
           try {
             loader.style.display = "block";
+            
+            // Firebase setup (using module import)
+            const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+            const { getFirestore, collection, getDocs, query, orderBy } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+            
+            const firebaseConfig = {
+              apiKey: "AIzaSyCGfLqqpSlet-jUtvQIGNwRFCR24iHhOUw",
+              authDomain: "armburst-7c92c.firebaseapp.com",
+              projectId: "armburst-7c92c",
+              storageBucket: "armburst-7c92c.firebasestorage.app",
+              messagingSenderId: "365920014049",
+              appId: "1:365920014049:web:7dd3e1923dd66d04d471a0"
+            };
 
-            const cloudName = "YOUR_CLOUD_NAME_HERE";
-            const tag = "gym_gallery";
-            const imageListUrl = `https://res.cloudinary.com/${cloudName}/image/list/${tag}.json`;
-            const videoListUrl = `https://res.cloudinary.com/${cloudName}/video/list/${tag}.json`;
-
-            let imageResources = [];
-            let videoResources = [];
-
+            let db;
             try {
-              const imageRes = await fetch(imageListUrl);
-              if (imageRes.ok) {
-                const data = await imageRes.json();
-                imageResources = data.resources || [];
-              }
+              const app = initializeApp(firebaseConfig);
+              db = getFirestore(app);
             } catch (e) {
-              console.error("Image list fetch skipped/errored", e);
+              console.warn('Firebase not configured. Using localStorage fallback.');
             }
 
-            try {
-              const videoRes = await fetch(videoListUrl);
-              if (videoRes.ok) {
-                const data = await videoRes.json();
-                videoResources = data.resources || [];
-              }
-            } catch (e) {
-              console.error("Video list fetch skipped/errored", e);
+            let allMedia = [];
+            if (db) {
+              const q = query(collection(db, 'gallery'), orderBy('created_at', 'desc'));
+              const snapshot = await getDocs(q);
+              allMedia = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            } else {
+              allMedia = JSON.parse(localStorage.getItem('gym_gallery') || '[]').reverse();
             }
 
             loader.style.display = "none";
 
-            let allMedia = [...imageResources, ...videoResources];
-
-            // Sort newest to oldest
-            allMedia.sort(
-              (a, b) => new Date(b.created_at) - new Date(a.created_at),
-            );
-
             if (allMedia.length === 0) {
-              photoGallery.innerHTML =
-                '<div class="gallery-empty"><div class="empty-icon">📷</div><p>No photos available yet.</p></div>';
-              videoGallery.innerHTML =
-                '<div class="gallery-empty"><div class="empty-icon">🎥</div><p>No videos available yet.</p></div>';
+              if (photoGallery) photoGallery.innerHTML = '<div class="gallery-empty"><div class="empty-icon">📷</div><p>No photos available yet.</p></div>';
+              if (videoGallery) videoGallery.innerHTML = '<div class="gallery-empty"><div class="empty-icon">🎥</div><p>No videos available yet.</p></div>';
               return;
             }
 
-            const videoFormats = ["mp4", "mov", "webm"];
             let photoCount = 0;
             let videoCount = 0;
 
             allMedia.forEach((resource) => {
               const card = document.createElement("div");
               card.className = "gallery-item-card";
-              const isVideo = videoFormats.includes(resource.format);
+              const isVideo = resource.resource_type === 'video';
 
-              if (isVideo) {
-                const videoUrl = `https://res.cloudinary.com/${cloudName}/video/upload/f_auto,q_auto/v${resource.version}/${resource.public_id}.${resource.format}`;
+              if (isVideo && videoGallery) {
                 const video = document.createElement("video");
-                video.src = videoUrl;
+                video.src = resource.secure_url;
                 video.controls = true;
                 video.muted = true;
                 video.loop = true;
@@ -911,34 +909,29 @@
                 card.appendChild(video);
                 videoGallery.appendChild(card);
                 videoCount++;
-              } else {
-                const imgUrl = `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto/v${resource.version}/${resource.public_id}.${resource.format}`;
+              } else if (photoGallery) {
                 const img = document.createElement("img");
-                img.src = imgUrl;
-                img.alt = "ARM Burst Gym Moment";
+                img.src = resource.secure_url;
+                img.alt = "ARMBURST GYM Gallery Media";
                 img.loading = "lazy";
-                img.addEventListener("click", () => openLightbox(imgUrl));
+                img.addEventListener("click", () => openLightbox(resource.secure_url));
                 card.appendChild(img);
                 photoGallery.appendChild(card);
                 photoCount++;
               }
             });
 
-            if (photoCount === 0) {
-              photoGallery.innerHTML =
-                '<div class="gallery-empty"><div class="empty-icon">📷</div><p>No photos available yet.</p></div>';
+            if (photoCount === 0 && photoGallery) {
+              photoGallery.innerHTML = '<div class="gallery-empty"><div class="empty-icon">📷</div><p>No photos available yet.</p></div>';
             }
-            if (videoCount === 0) {
-              videoGallery.innerHTML =
-                '<div class="gallery-empty"><div class="empty-icon">🎥</div><p>No videos available yet.</p></div>';
+            if (videoCount === 0 && videoGallery) {
+              videoGallery.innerHTML = '<div class="gallery-empty"><div class="empty-icon">🎥</div><p>No videos available yet.</p></div>';
             }
           } catch (error) {
             console.error(error);
             loader.style.display = "none";
-            photoGallery.innerHTML =
-              '<div class="gallery-empty"><div class="empty-icon">⚠️</div><p>Unable to load photos at this time.</p></div>';
-            videoGallery.innerHTML =
-              '<div class="gallery-empty"><div class="empty-icon">⚠️</div><p>Unable to load videos at this time.</p></div>';
+            if (photoGallery) photoGallery.innerHTML = '<div class="gallery-empty"><div class="empty-icon">⚠️</div><p>Unable to load photos at this time.</p></div>';
+            if (videoGallery) videoGallery.innerHTML = '<div class="gallery-empty"><div class="empty-icon">⚠️</div><p>Unable to load videos at this time.</p></div>';
           }
         });
       </script>
