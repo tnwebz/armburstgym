@@ -167,18 +167,14 @@
       <div class="founders-carousel reveal" id="foundersCarousel">
         <div class="founders-carousel-grid">
           <div class="founders-image-stage" id="foundersImageStage">
-            <img
-              src="images/img_2.png"
-              alt="Mr Owner, Founder and Head Coach at ARMBURST GYM Gym Chengalpattu"
-              class="founders-carousel-img"
-              data-index="0"
-            />
-            <img
-              src="images/p1.png"
-              alt="Strategic Lead and Co-founder at ARMBURST GYM unisex gym Chengalpattu"
-              class="founders-carousel-img"
-              data-index="1"
-            />
+            <div class="editable-wrapper" style="position: absolute; inset: 0;">
+              <img loading="lazy" src="images/img_2.png" alt="Mr. DINESH, Founder and Head Coach at ARMBURST GYM Gym Chengalpattu" class="founders-carousel-img" data-index="0" data-editable-id="founder_1" />
+              <button class="edit-image-btn" data-target="founder_1" style="display:none;">📷 Change Image</button>
+            </div>
+            <div class="editable-wrapper" style="position: absolute; inset: 0;">
+              <img loading="lazy" src="images/p1.png" alt="Strategic Lead and Co-founder at ARMBURST GYM unisex gym Chengalpattu" class="founders-carousel-img" data-index="1" data-editable-id="founder_2" />
+              <button class="edit-image-btn" data-target="founder_2" style="display:none;">📷 Change Image</button>
+            </div>
           </div>
 
           <div class="founders-carousel-content">
@@ -187,7 +183,7 @@
               id="foundersTextPanel"
               aria-live="polite"
             >
-              <h3 class="founders-name" id="foundersName">Mr Owner</h3>
+              <h3 class="founders-name" id="foundersName">Mr. DINESH</h3>
               <p class="founders-role" id="foundersRole">
                 Founder &amp; Head Coach
               </p>
@@ -254,27 +250,30 @@
       <!-- Sliding Background Images -->
       <div class="infra-slider">
         <div class="infra-slider-track">
-          <img
+          <img loading="lazy"
             src="images/d1.png"
             alt="Premium weight training equipment at ARMBURST GYM Thimmavaram Chengalpattu"
+            data-editable-id="infra_1"
           />
-          <img
+          <img loading="lazy"
             src="images/d2.png"
             alt="State-of-the-art cardio zone at ARMBURST GYM Gym Chengalpattu"
+            data-editable-id="infra_2"
           />
-          <img
+          <img loading="lazy"
             src="images/d3.png"
             alt="Functional training area at the best gym in Chengalpattu ARMBURST GYM"
+            data-editable-id="infra_3"
           />
-          <img
+          <img loading="lazy"
             src="images/d1.png"
             alt="Premium strength training equipment at ARMBURST GYM unisex gym Chengalpattu"
           />
-          <img
+          <img loading="lazy"
             src="images/d2.png"
             alt="Advanced cardio machines at ARMBURST GYM Center near Thimmavaram"
           />
-          <img
+          <img loading="lazy"
             src="images/d3.png"
             alt="Functional training and bodybuilding zone at ARMBURST GYM Gym Chengalpattu"
           />
@@ -336,6 +335,12 @@
         <h2 class="infra-heading">Interior | Design | Branding</h2>
         <p class="infra-tagline">We won't let you stay ordinary</p>
         <a href="#contact" class="infra-btn">Get Started</a>
+        <!-- Admin: Change Infrastructure Photos -->
+        <div class="infra-admin-btns" style="display: none;">
+          <button class="edit-image-btn infra-edit-btn" data-target="infra_1">📷 Photo 1</button>
+          <button class="edit-image-btn infra-edit-btn" data-target="infra_2">📷 Photo 2</button>
+          <button class="edit-image-btn infra-edit-btn" data-target="infra_3">📷 Photo 3</button>
+        </div>
       </div>
     </section>
 
@@ -374,10 +379,10 @@
       <div class="classes-grid">
         <div class="classes-card reveal slide-left">
           <div class="classes-img-wrap">
-            <img
-              src="images/c1.png"
-              alt="Cardio training class at ARMBURST GYM gym near Thimmavaram Chengalpattu"
-            />
+            <div class="editable-wrapper" style="display: block; width: 100%; height: 100%;">
+              <img loading="lazy" src="images/c1.png" alt="Cardio training class at ARMBURST GYM gym near Thimmavaram Chengalpattu" data-editable-id="classes_cardio" style="width: 100%; height: 100%; object-fit: cover;" />
+              <button class="edit-image-btn" data-target="classes_cardio" style="display:none;">📷 Change Image</button>
+            </div>
           </div>
           <div class="classes-text-wrap">
             <h3 class="classes-label">CARDIO</h3>
@@ -389,10 +394,10 @@
         </div>
         <div class="classes-card reverse reveal slide-right">
           <div class="classes-img-wrap">
-            <img
-              src="images/s1.png"
-              alt="Strength and weight training session at ARMBURST GYM gym Chengalpattu"
-            />
+            <div class="editable-wrapper" style="display: block; width: 100%; height: 100%;">
+              <img loading="lazy" src="images/s1.png" alt="Strength and weight training session at ARMBURST GYM gym Chengalpattu" data-editable-id="classes_strength" style="width: 100%; height: 100%; object-fit: cover;" />
+              <button class="edit-image-btn" data-target="classes_strength" style="display:none;">📷 Change Image</button>
+            </div>
           </div>
           <div class="classes-text-wrap">
             <h3 class="classes-label">STRENGTH TRAINING</h3>
@@ -415,7 +420,7 @@
         <button class="schedule-modal-close" id="scheduleModalClose">
           &times;
         </button>
-        <img
+        <img loading="lazy"
           src="images/sh.png"
           alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable"
         />
@@ -456,12 +461,18 @@
           href="#"
           target="_blank"
           rel="noopener noreferrer"
+          href="https://www.instagram.com/armburst_gym_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+          target="_blank"
+          rel="noopener noreferrer"
           class="home-instagram-follow"
           >Follow Us ↗</a
         >
       </div>
-      <div class="home-instagram-embed reveal">
-        <!-- Widget removed. User will provide new link later. -->
+      
+      <div class="home-instagram-embed reveal" style="display: flex; justify-content: center; width: 100%; margin-top: 30px;">
+        <!-- Elfsight Instagram Feed | Untitled Instagram Feed -->
+        <script src="https://elfsightcdn.com/platform.js" async></script>
+        <div class="elfsight-app-b7b24720-ea2f-41c4-b0b1-49a1686c983b" data-elfsight-app-lazy></div>
       </div>
     </section>
 
@@ -505,7 +516,7 @@
           </div>
           <article class="review-card" data-index="0">
             <div class="review-card-image">
-              <img
+              <img loading="lazy"
                 src="images/r1.png"
                 alt="5-star Google review for ARMBURST GYM Gym Chengalpattu from a satisfied member"
               />
@@ -513,7 +524,7 @@
           </article>
           <article class="review-card" data-index="1">
             <div class="review-card-image">
-              <img
+              <img loading="lazy"
                 src="images/r2.png"
                 alt="Member testimonial praising ARMBURST GYM as the best gym near Thimmavaram"
               />
@@ -521,7 +532,7 @@
           </article>
           <article class="review-card" data-index="2">
             <div class="review-card-image">
-              <img
+              <img loading="lazy"
                 src="images/r3.png"
                 alt="Positive review for ARMBURST GYM unisex gym Chengalpattu training programs"
               />
@@ -529,7 +540,7 @@
           </article>
           <article class="review-card" data-index="3">
             <div class="review-card-image">
-              <img
+              <img loading="lazy"
                 src="images/r4.png"
                 alt="Google review highlighting premium equipment at ARMBURST GYM Chengalpattu"
               />
@@ -537,7 +548,7 @@
           </article>
           <article class="review-card" data-index="4">
             <div class="review-card-image">
-              <img
+              <img loading="lazy"
                 src="images/r5.png"
                 alt="Member transformation success story at ARMBURST GYM Gym Chengalpattu"
               />
@@ -545,7 +556,7 @@
           </article>
           <article class="review-card" data-index="5">
             <div class="review-card-image">
-              <img
+              <img loading="lazy"
                 src="images/r6.png"
                 alt="Five-star rated ARMBURST GYM gym review from Chengalpattu member"
               />
@@ -860,7 +871,7 @@
           "
         >
           <a
-            href="#"
+            href="https://www.instagram.com/armburst_gym_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
             target="_blank"
             aria-label="Instagram"
             style="color: #fff; text-decoration: none"
@@ -890,5 +901,177 @@
     </footer>
 
     <script src="script.js"></script>
-  </body>
+
+    <!-- ===== INLINE CMS CORE LOGIC ===== -->
+    <input type="file" id="inlineCmsFileInput" accept="image/*" style="display: none;" />
+    
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCGfLqqpSlet-jUtvQIGNwRFCR24iHhOUw",
+        authDomain: "armburst-7c92c.firebaseapp.com",
+        projectId: "armburst-7c92c",
+        storageBucket: "armburst-7c92c.firebasestorage.app",
+        messagingSenderId: "365920014049",
+        appId: "1:365920014049:web:7dd3e1923dd66d04d471a0"
+      };
+
+      let db;
+      try {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+      } catch (e) {
+        console.warn('Firebase init failed.');
+      }
+
+      const CLOUD_NAME = "mk5zjnak";
+      const UPLOAD_PRESET = "ml_default";
+
+      const isAdmin = sessionStorage.getItem("adminAuth") === "true";
+      const fileInput = document.getElementById("inlineCmsFileInput");
+      let currentEditTargetId = null;
+      
+      // Load Custom Images from Firebase
+      async function loadSiteImages() {
+        if (isAdmin) {
+          // Show infra admin buttons immediately
+          const infraBtns = document.querySelector('.infra-admin-btns');
+          if (infraBtns) infraBtns.style.display = 'flex';
+          
+          document.querySelectorAll('.edit-image-btn').forEach(btn => {
+            btn.style.display = 'block';
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              currentEditTargetId = btn.getAttribute('data-target');
+              fileInput.click();
+            });
+          });
+        }
+
+        const editables = document.querySelectorAll('[data-editable-id]');
+        
+        for (let el of editables) {
+          const id = el.getAttribute('data-editable-id');
+          
+          let savedUrl = null;
+          if (db) {
+            try {
+              const docSnap = await getDoc(doc(db, "site_images", id));
+              if (docSnap.exists()) {
+                savedUrl = docSnap.data().url;
+              }
+            } catch(e) {}
+          } else {
+            savedUrl = localStorage.getItem('cms_' + id);
+          }
+          
+          if (savedUrl) {
+            if (el.tagName === 'IMG') {
+              el.src = savedUrl;
+            } else {
+              el.style.backgroundImage = "url('" + savedUrl + "')";
+            }
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadSiteImages);
+
+      // Handle Image Upload
+      fileInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file || !currentEditTargetId) return;
+        
+        const btn = document.querySelector('.edit-image-btn[data-target="' + currentEditTargetId + '"]');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = "\u23F3 Uploading...";
+        btn.disabled = true;
+
+        try {
+          let processedFile = file;
+          if (file.size > 300 * 1024) {
+             processedFile = await compressImage(file, 300 * 1024);
+          }
+          
+          const url = "https://api.cloudinary.com/v1_1/" + CLOUD_NAME + "/image/upload";
+          const fd = new FormData();
+          fd.append('file', processedFile);
+          fd.append('upload_preset', UPLOAD_PRESET);
+          
+          const res = await fetch(url, { method: 'POST', body: fd });
+          const data = await res.json();
+          
+          if (data.secure_url) {
+            if (db) {
+              await setDoc(doc(db, "site_images", currentEditTargetId), { url: data.secure_url });
+            } else {
+              localStorage.setItem('cms_' + currentEditTargetId, data.secure_url);
+            }
+            
+            // Update all matching images in DOM
+            document.querySelectorAll('[data-editable-id="' + currentEditTargetId + '"]').forEach(el => {
+              if (el.tagName === 'IMG') {
+                el.src = data.secure_url;
+              } else {
+                el.style.backgroundImage = "url('" + data.secure_url + "')";
+              }
+            });
+            
+            window.customAlert("Image updated successfully!");
+          }
+        } catch(err) {
+          console.error(err);
+          window.customAlert("Upload failed.");
+        } finally {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          fileInput.value = '';
+          currentEditTargetId = null;
+        }
+      });
+      
+      function compressImage(file, maxSize) {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              const maxWidth = 1920; 
+              const scaleSize = Math.min(maxWidth / img.width, 1);
+              canvas.width = img.width * scaleSize;
+              canvas.height = img.height * scaleSize;
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              
+              let quality = 0.8;
+              const recursivelyCompress = (q) => {
+                canvas.toBlob((blob) => {
+                  if (blob.size <= maxSize || q <= 0.2) {
+                    resolve(new File([blob], file.name, { type: 'image/jpeg' }));
+                  } else {
+                    recursivelyCompress(q - 0.1);
+                  }
+                }, 'image/jpeg', q);
+              };
+              recursivelyCompress(quality);
+            };
+          };
+        });
+      }
+    </script>
+
+  
+    <!-- Floating WhatsApp Icon -->
+    <a href="https://wa.me/919786095401" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+      <svg viewBox="0 0 32 32" width="32" height="32" fill="currentColor">
+        <path d="M16.05 2.1c-7.7 0-13.9 6.2-13.9 13.9 0 2.45.65 4.8 1.85 6.9l-2 7.35 7.5-1.95c2 .1 4.1.75 6.2.75 7.7 0 13.9-6.2 13.9-13.9 0-7.7-6.2-13.9-13.9-13.9zm0 25.5c-2.1 0-4.1-.55-5.9-1.55l-.4-.25-4.4 1.15 1.15-4.3-.3-.45c-1.15-1.8-1.75-3.9-1.75-6 0-6.45 5.25-11.7 11.7-11.7s11.7 5.25 11.7 11.7c-.05 6.4-5.3 11.65-11.75 11.65zm6.4-8.5c-.35-.2-2.1-1.05-2.4-1.15-.35-.15-.6-.2-.85.15s-1 1.15-1.2 1.4c-.2.25-.4.3-.75.15-.35-.2-1.5-.55-2.85-1.75-1.05-.95-1.8-2.1-2-2.45-.2-.35-.05-.55.15-.7.15-.15.35-.35.5-.55.15-.2.2-.35.3-.55.1-.2.05-.4-.05-.55-.1-.2-.85-2.1-1.15-2.85-.3-.75-.65-.65-.85-.65h-.75c-.3 0-.75.1-1.15.55-.35.4-1.4 1.35-1.4 3.3s1.4 3.8 1.6 4.1c.2.25 2.8 4.25 6.8 5.95.95.4 1.7.65 2.3.85.95.3 1.8.25 2.5.15.75-.1 2.1-.85 2.4-1.7.3-.85.3-1.55.2-1.7-.1-.1-.35-.15-.7-.35z"></path>
+      </svg>
+    </a>
+</body>
 </html>

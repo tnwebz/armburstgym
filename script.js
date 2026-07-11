@@ -309,7 +309,7 @@ function initFoundersCarousel() {
 
   const founders = [
     {
-      name: "Mr Owner",
+      name: "Mr. DINESH",
       role: "Founder & Head Coach",
       quote:
         "A dedicated fitness professional with a vision to revolutionize the training experience. With over a decade of mastery in bodybuilding and nutrition, he has laid the foundation for ARMBURST GYM's elite standards.",
@@ -707,12 +707,18 @@ function initAdminShield() {
         clearTimeout(tapTimer);
         tapCount = 0;
         
+        // If already admin, toggle OFF
+        if (sessionStorage.getItem("adminAuth") === "true") {
+          sessionStorage.removeItem("adminAuth");
+          window.location.reload();
+          return;
+        }
+        
         const passkey = prompt("Enter Admin Passkey:");
         if (passkey === '111') {
+          sessionStorage.setItem('adminAuth', 'true');
           shields.forEach(s => s.classList.add('unlocked'));
-          setTimeout(() => {
-            window.location.href = 'admin.html';
-          }, 500);
+          window.location.reload();
         } else if (passkey !== null) {
           alert('Incorrect passkey.');
         }
@@ -722,3 +728,74 @@ function initAdminShield() {
 }
 
 initAdminShield();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isAdmin = sessionStorage.getItem("adminAuth") === "true";
+  
+  if (isAdmin) {
+    const desktopShield = document.getElementById("adminShieldDesktop");
+    const mobileShield = document.getElementById("adminShieldMobile");
+    if (desktopShield) desktopShield.classList.add("unlocked");
+    if (mobileShield) mobileShield.classList.add("unlocked");
+    
+    const exitBtn = document.createElement("button");
+    exitBtn.className = "exit-admin-btn";
+    exitBtn.innerHTML = "\u{1F513} Exit Admin Mode";
+    exitBtn.onclick = () => {
+      sessionStorage.removeItem("adminAuth");
+      window.location.reload();
+    };
+    document.body.appendChild(exitBtn);
+  }
+});
+
+window.customAlert = function(msg, callback) {
+  createModal(msg, false, callback);
+};
+window.customPrompt = function(msg, callback) {
+  createModal(msg, true, callback);
+};
+
+function createModal(msg, isPrompt, callback) {
+  const overlay = document.createElement('div');
+  overlay.className = 'custom-modal-overlay';
+  
+  let inputHtml = isPrompt ? '<input type="password" class="custom-modal-input" id="customModalInput" />' : '';
+  let cancelBtnHtml = isPrompt ? '<button class="custom-modal-btn cancel" id="customModalCancel">Cancel</button>' : '';
+
+  overlay.innerHTML = `
+    <div class="custom-modal-box">
+      <div class="custom-modal-msg">${msg}</div>
+      ${inputHtml}
+      <div class="custom-modal-btns">
+        <button class="custom-modal-btn" id="customModalOk">OK</button>
+        ${cancelBtnHtml}
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  setTimeout(() => overlay.classList.add('active'), 10);
+
+  const okBtn = overlay.querySelector('#customModalOk');
+  const cancelBtn = overlay.querySelector('#customModalCancel');
+  const inputEl = overlay.querySelector('#customModalInput');
+
+  if (inputEl) inputEl.focus();
+
+  function close(val) {
+    overlay.classList.remove('active');
+    setTimeout(() => overlay.remove(), 300);
+    if (callback) callback(val);
+  }
+
+  okBtn.onclick = () => close(isPrompt ? inputEl.value : true);
+  if (cancelBtn) cancelBtn.onclick = () => close(null);
+  
+  if (inputEl) {
+    inputEl.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') close(inputEl.value);
+    });
+  }
+}
