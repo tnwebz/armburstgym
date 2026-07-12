@@ -954,3 +954,10 @@ function createModal(msg, isPrompt, callback) {
     });
   }
 }
+
+// Prevent downloading of images and videos globally
+document.addEventListener('contextmenu', (e) => {
+  if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+    e.preventDefault();
+  }
+});
