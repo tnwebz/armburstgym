@@ -686,41 +686,193 @@ const shimmerObserver = new IntersectionObserver(
 sectionTitles.forEach((el) => shimmerObserver.observe(el));
 
 // ===== ADMIN ACCESS =====
+function showAdminPrompt() {
+  return new Promise((resolve) => {
+    // create overlay
+    const overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+    overlay.style.backdropFilter = "blur(5px)";
+    overlay.style.zIndex = "99999";
+    overlay.style.display = "flex";
+    overlay.style.alignItems = "center";
+    overlay.style.justifyContent = "center";
+
+    // create box
+    const box = document.createElement("div");
+    box.style.backgroundColor = "#ffffff";
+    box.style.borderTop = "4px solid red";
+    box.style.borderRadius = "8px";
+    box.style.padding = "24px";
+    box.style.width = "90%";
+    box.style.maxWidth = "350px";
+    box.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
+    box.style.fontFamily = "'Inter', sans-serif";
+
+    // create title
+    const title = document.createElement("h3");
+    title.innerText = "";
+    title.style.margin = "0 0 16px 0";
+    title.style.color = "#333";
+    title.style.fontSize = "1rem";
+    title.style.fontWeight = "600";
+
+    const label = document.createElement("p");
+    label.innerText = "Enter Admin Passkey:";
+    label.style.margin = "0 0 10px 0";
+    label.style.color = "#555";
+    label.style.fontSize = "0.95rem";
+
+    // create input
+    const input = document.createElement("input");
+    input.type = "password";
+    input.style.width = "100%";
+    input.style.padding = "10px";
+    input.style.border = "1px solid #ccc";
+    input.style.borderRadius = "4px";
+    input.style.fontSize = "1rem";
+    input.style.marginBottom = "20px";
+    input.style.boxSizing = "border-box";
+    input.style.outline = "none";
+    input.style.transition = "border-color 0.2s";
+
+    input.addEventListener("focus", () => (input.style.borderColor = "red"));
+    input.addEventListener("blur", () => (input.style.borderColor = "#ccc"));
+
+    // create buttons container
+    const btnContainer = document.createElement("div");
+    btnContainer.style.display = "flex";
+    btnContainer.style.justifyContent = "flex-end";
+    btnContainer.style.gap = "10px";
+
+    // create cancel button
+    const cancelBtn = document.createElement("button");
+    cancelBtn.innerText = "Cancel";
+    cancelBtn.style.padding = "8px 16px";
+    cancelBtn.style.border = "1px solid #ccc";
+    cancelBtn.style.backgroundColor = "#fff";
+    cancelBtn.style.color = "#333";
+    cancelBtn.style.borderRadius = "4px";
+    cancelBtn.style.cursor = "pointer";
+    cancelBtn.style.fontWeight = "600";
+    cancelBtn.style.transition = "background 0.2s";
+    cancelBtn.addEventListener(
+      "mouseover",
+      () => (cancelBtn.style.backgroundColor = "#f0f0f0"),
+    );
+    cancelBtn.addEventListener(
+      "mouseout",
+      () => (cancelBtn.style.backgroundColor = "#fff"),
+    );
+
+    // create ok button
+    const okBtn = document.createElement("button");
+    okBtn.innerText = "OK";
+    okBtn.style.padding = "8px 16px";
+    okBtn.style.border = "none";
+    okBtn.style.backgroundColor = "red";
+    okBtn.style.color = "#ffffff";
+    okBtn.style.borderRadius = "4px";
+    okBtn.style.cursor = "pointer";
+    okBtn.style.fontWeight = "600";
+    okBtn.style.transition = "background 0.2s";
+    okBtn.addEventListener(
+      "mouseover",
+      () => (okBtn.style.backgroundColor = "#cc0000"),
+    );
+    okBtn.addEventListener(
+      "mouseout",
+      () => (okBtn.style.backgroundColor = "red"),
+    );
+
+    btnContainer.appendChild(okBtn);
+    btnContainer.appendChild(cancelBtn);
+
+    box.appendChild(title);
+    box.appendChild(label);
+    box.appendChild(input);
+    box.appendChild(btnContainer);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // Fade in
+    if (overlay.animate) {
+      overlay.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200 });
+      box.animate([{ transform: "scale(0.95)" }, { transform: "scale(1)" }], {
+        duration: 200,
+        easing: "ease-out",
+      });
+    }
+
+    input.focus();
+
+    const close = (val) => {
+      if (overlay.animate) {
+        const anim = overlay.animate([{ opacity: 1 }, { opacity: 0 }], {
+          duration: 150,
+        });
+        anim.onfinish = () => {
+          if (document.body.contains(overlay)) {
+            document.body.removeChild(overlay);
+          }
+          resolve(val);
+        };
+      } else {
+        document.body.removeChild(overlay);
+        resolve(val);
+      }
+    };
+
+    okBtn.addEventListener("click", () => close(input.value));
+    cancelBtn.addEventListener("click", () => close(null));
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") close(input.value);
+      if (e.key === "Escape") close(null);
+    });
+  });
+}
+
 function initAdminShield() {
-  const shields = document.querySelectorAll('#adminShieldDesktop, #adminShieldMobile');
-  
-  shields.forEach(shield => {
+  const shields = document.querySelectorAll(
+    "#adminShieldDesktop, #adminShieldMobile",
+  );
+
+  shields.forEach((shield) => {
     let tapCount = 0;
     let tapTimer;
-    
-    shield.addEventListener('click', (e) => {
+
+    shield.addEventListener("click", async (e) => {
       e.preventDefault();
       tapCount++;
-      
+
       if (tapCount === 1) {
         tapTimer = setTimeout(() => {
           tapCount = 0;
         }, 1500);
       }
-      
+
       if (tapCount === 3) {
         clearTimeout(tapTimer);
         tapCount = 0;
-        
+
         // If already admin, toggle OFF
         if (sessionStorage.getItem("adminAuth") === "true") {
           sessionStorage.removeItem("adminAuth");
           window.location.reload();
           return;
         }
-        
-        const passkey = prompt("Enter Admin Passkey:");
-        if (passkey === '111') {
-          sessionStorage.setItem('adminAuth', 'true');
-          shields.forEach(s => s.classList.add('unlocked'));
+
+        const passkey = await showAdminPrompt();
+        if (passkey === "111") {
+          sessionStorage.setItem("adminAuth", "true");
+          shields.forEach((s) => s.classList.add("unlocked"));
           window.location.reload();
         } else if (passkey !== null) {
-          alert('Incorrect passkey.');
+          alert("Incorrect passkey.");
         }
       }
     });
@@ -729,16 +881,15 @@ function initAdminShield() {
 
 initAdminShield();
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const isAdmin = sessionStorage.getItem("adminAuth") === "true";
-  
+
   if (isAdmin) {
     const desktopShield = document.getElementById("adminShieldDesktop");
     const mobileShield = document.getElementById("adminShieldMobile");
     if (desktopShield) desktopShield.classList.add("unlocked");
     if (mobileShield) mobileShield.classList.add("unlocked");
-    
+
     const exitBtn = document.createElement("button");
     exitBtn.className = "exit-admin-btn";
     exitBtn.innerHTML = "\u{1F513} Exit Admin Mode";
@@ -750,19 +901,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-window.customAlert = function(msg, callback) {
+window.customAlert = function (msg, callback) {
   createModal(msg, false, callback);
 };
-window.customPrompt = function(msg, callback) {
+window.customPrompt = function (msg, callback) {
   createModal(msg, true, callback);
 };
 
 function createModal(msg, isPrompt, callback) {
-  const overlay = document.createElement('div');
-  overlay.className = 'custom-modal-overlay';
-  
-  let inputHtml = isPrompt ? '<input type="password" class="custom-modal-input" id="customModalInput" />' : '';
-  let cancelBtnHtml = isPrompt ? '<button class="custom-modal-btn cancel" id="customModalCancel">Cancel</button>' : '';
+  const overlay = document.createElement("div");
+  overlay.className = "custom-modal-overlay";
+
+  let inputHtml = isPrompt
+    ? '<input type="password" class="custom-modal-input" id="customModalInput" />'
+    : "";
+  let cancelBtnHtml = isPrompt
+    ? '<button class="custom-modal-btn cancel" id="customModalCancel">Cancel</button>'
+    : "";
 
   overlay.innerHTML = `
     <div class="custom-modal-box">
@@ -776,26 +931,26 @@ function createModal(msg, isPrompt, callback) {
   `;
   document.body.appendChild(overlay);
 
-  setTimeout(() => overlay.classList.add('active'), 10);
+  setTimeout(() => overlay.classList.add("active"), 10);
 
-  const okBtn = overlay.querySelector('#customModalOk');
-  const cancelBtn = overlay.querySelector('#customModalCancel');
-  const inputEl = overlay.querySelector('#customModalInput');
+  const okBtn = overlay.querySelector("#customModalOk");
+  const cancelBtn = overlay.querySelector("#customModalCancel");
+  const inputEl = overlay.querySelector("#customModalInput");
 
   if (inputEl) inputEl.focus();
 
   function close(val) {
-    overlay.classList.remove('active');
+    overlay.classList.remove("active");
     setTimeout(() => overlay.remove(), 300);
     if (callback) callback(val);
   }
 
   okBtn.onclick = () => close(isPrompt ? inputEl.value : true);
   if (cancelBtn) cancelBtn.onclick = () => close(null);
-  
+
   if (inputEl) {
-    inputEl.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') close(inputEl.value);
+    inputEl.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") close(inputEl.value);
     });
   }
 }
