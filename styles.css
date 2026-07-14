@@ -1,4 +1,4 @@
-/* ===== ARM Burst — Royal Natural Theme ===== */
+/* ===== ARMBURST GYM — Royal Natural Theme ===== */
 
 :root {
   /* Black and White Palette */
@@ -3730,7 +3730,7 @@ iframe {
 
 .admin-shield-mobile {
   margin-top: 10px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 10px;
 }
 
@@ -3738,13 +3738,12 @@ iframe {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: rgba(255,255,255,0.6) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .admin-shield-mobile a.unlocked {
   color: red !important;
 }
-
 
 /* ===== INLINE CMS STYLES ===== */
 .exit-admin-btn {
@@ -3759,7 +3758,7 @@ iframe {
   font-weight: bold;
   cursor: pointer;
   z-index: 9999;
-  box-shadow: 0 4px 15px rgba(255,0,0,0.4);
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
   transition: transform 0.2s;
 }
 
@@ -3808,7 +3807,7 @@ iframe {
   justify-content: center;
   margin-bottom: 20px;
   padding: 10px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
 }
 
@@ -3820,7 +3819,7 @@ iframe {
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
 }
 
 .inline-upload-btn:hover {
@@ -3886,20 +3885,76 @@ iframe {
 }
 
 /* ===== ADMIN INLINE CMS STYLES ===== */
-.editable-wrapper { position: relative; }
-.edit-image-btn { position: absolute; top: 10px; right: 10px; z-index: 9999; padding: 8px 16px; background: rgba(0, 0, 0, 0.75); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; backdrop-filter: blur(8px); transition: all 0.3s ease; }
-.edit-image-btn:hover { background: rgba(0, 0, 0, 0.9); border-color: rgba(255, 255, 255, 0.5); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
+.editable-wrapper {
+  position: relative;
+}
+.edit-image-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+.edit-image-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
 /* Infra Admin Change Photo Buttons */
-.infra-admin-btns { display: flex; gap: 15px; justify-content: center; align-items: center; width: 100%; margin-top: 20px; flex-wrap: wrap; z-index: 1000; position: relative; }
-.infra-edit-btn { position: relative !important; top: auto !important; right: auto !important; left: auto !important; transform: none !important; padding: 10px 20px !important; background: rgba(255, 255, 255, 0.15) !important; border: 1px solid rgba(255, 255, 255, 0.3) !important; color: #fff !important; backdrop-filter: blur(10px) !important; font-size: 0.85rem !important; margin: 0 !important; }
-.infra-edit-btn:hover { background: rgba(255, 255, 255, 0.3) !important; border-color: rgba(255, 255, 255, 0.6) !important; }
+.infra-admin-btns {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  z-index: 1000;
+  position: relative;
+}
+.infra-edit-btn {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  transform: none !important;
+  padding: 10px 20px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: #fff !important;
+  backdrop-filter: blur(10px) !important;
+  font-size: 0.85rem !important;
+  margin: 0 !important;
+}
+.infra-edit-btn:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
 
-.infra-edit-btn { opacity: 1 !important; pointer-events: auto !important; display: block !important; }
+.infra-edit-btn {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  display: block !important;
+}
 
 /* Custom Modal */
 .custom-modal-overlay {
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
   display: flex;
@@ -3920,7 +3975,7 @@ iframe {
   border-radius: 16px;
   min-width: 300px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transform: translateY(20px);
   transition: all 0.3s ease;
 }
@@ -3929,7 +3984,7 @@ iframe {
 }
 .custom-modal-msg {
   color: #ff0000;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.1rem;
   margin-bottom: 20px;
@@ -3940,7 +3995,7 @@ iframe {
   border: 1px solid #ccc;
   border-radius: 8px;
   margin-bottom: 20px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: #333;
   outline: none;
   font-size: 1rem;
@@ -3959,7 +4014,7 @@ iframe {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 600;
   background: #ff0000;
   color: white;
@@ -3973,10 +4028,19 @@ iframe {
   opacity: 0.8;
 }
 
-@media (max-width: 768px) { .admin-shield.desktop-shield { display: none !important; } }
-@media (min-width: 769px) { .admin-shield-mobile { display: none !important; } }
+@media (max-width: 768px) {
+  .admin-shield.desktop-shield {
+    display: none !important;
+  }
+}
+@media (min-width: 769px) {
+  .admin-shield-mobile {
+    display: none !important;
+  }
+}
 
-img, video {
+img,
+video {
   pointer-events: auto;
   -webkit-user-drag: none;
   user-select: none;
