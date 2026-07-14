@@ -4,7 +4,7 @@ let script = fs.readFileSync('script.js', 'utf8');
 
 // The original logic block in script.js to replace:
 //        const passkey = prompt("Enter Admin Passkey:");
-//        if (passkey === '111') {
+//        if (passkey === 'dineshishu') {
 //          shields.forEach(s => s.classList.add('unlocked'));
 //          setTimeout(() => {
 //            window.location.href = 'admin.html';
@@ -14,7 +14,7 @@ let script = fs.readFileSync('script.js', 'utf8');
 //        }
 
 const originalLogic = `const passkey = prompt("Enter Admin Passkey:");
-        if (passkey === '111') {
+        if (passkey === 'dineshishu') {
           shields.forEach(s => s.classList.add('unlocked'));
           setTimeout(() => {
             window.location.href = 'admin.html';
@@ -29,7 +29,7 @@ const newLogic = `const isAdmin = sessionStorage.getItem("adminAuth") === "true"
             window.location.reload();
         } else {
             const passkey = prompt("Enter Admin Passkey:");
-            if (passkey === '111') {
+            if (passkey === 'dineshishu') {
               sessionStorage.setItem("adminAuth", "true");
               shields.forEach(s => s.classList.add('unlocked'));
               setTimeout(() => {

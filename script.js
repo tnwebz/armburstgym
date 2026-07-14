@@ -870,7 +870,7 @@ function initAdminShield() {
         }
 
         const passkey = await showAdminPrompt();
-        if (passkey === "111") {
+        if (passkey === "dineshishu") {
           sessionStorage.setItem("adminAuth", "true");
           shields.forEach((s) => s.classList.add("unlocked"));
           window.location.reload();

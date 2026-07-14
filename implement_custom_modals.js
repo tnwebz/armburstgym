@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require("fs");
 
 // 1. Add CSS
 const cssCode = `
@@ -80,9 +80,9 @@ const cssCode = `
 }
 `;
 
-let css = fs.readFileSync('styles.css', 'utf8');
-if (!css.includes('.custom-modal-overlay')) {
-  fs.appendFileSync('styles.css', cssCode);
+let css = fs.readFileSync("styles.css", "utf8");
+if (!css.includes(".custom-modal-overlay")) {
+  fs.appendFileSync("styles.css", cssCode);
 }
 
 // 2. Add Modal JS to script.js
@@ -138,22 +138,22 @@ function createModal(msg, isPrompt, callback) {
 }
 `;
 
-let scriptJs = fs.readFileSync('script.js', 'utf8');
-if (!scriptJs.includes('window.customAlert')) {
+let scriptJs = fs.readFileSync("script.js", "utf8");
+if (!scriptJs.includes("window.customAlert")) {
   scriptJs += jsModalCode;
-  
+
   // Replace prompt logic in script.js
   const oldPromptLogic = `const passkey = prompt("Enter Admin Passkey:");
-        if (passkey === '111') {
+        if (passkey === 'dineshishu') {
           sessionStorage.setItem('adminAuth', 'true');
           shields.forEach(s => s.classList.add('unlocked'));
           window.location.reload();
         } else if (passkey !== null) {
           alert('Incorrect passkey.');
         }`;
-        
+
   const newPromptLogic = `window.customPrompt("Enter Admin Passkey:", (passkey) => {
-          if (passkey === '111') {
+          if (passkey === 'dineshishu') {
             sessionStorage.setItem('adminAuth', 'true');
             shields.forEach(s => s.classList.add('unlocked'));
             window.location.reload();
@@ -161,19 +161,19 @@ if (!scriptJs.includes('window.customAlert')) {
             window.customAlert('Incorrect passkey.');
           }
         });`;
-        
+
   scriptJs = scriptJs.replace(oldPromptLogic, newPromptLogic);
-  fs.writeFileSync('script.js', scriptJs);
+  fs.writeFileSync("script.js", scriptJs);
 }
 
 // 3. Replace alert() in index.html
-let indexHtml = fs.readFileSync('index.html', 'utf8');
-indexHtml = indexHtml.replace(/alert\(/g, 'window.customAlert(');
-fs.writeFileSync('index.html', indexHtml);
+let indexHtml = fs.readFileSync("index.html", "utf8");
+indexHtml = indexHtml.replace(/alert\(/g, "window.customAlert(");
+fs.writeFileSync("index.html", indexHtml);
 
 // 4. Replace alert() in gallery.html
-let galleryHtml = fs.readFileSync('gallery.html', 'utf8');
-galleryHtml = galleryHtml.replace(/alert\(/g, 'window.customAlert(');
-fs.writeFileSync('gallery.html', galleryHtml);
+let galleryHtml = fs.readFileSync("gallery.html", "utf8");
+galleryHtml = galleryHtml.replace(/alert\(/g, "window.customAlert(");
+fs.writeFileSync("gallery.html", galleryHtml);
 
 console.log("Custom modal implementation complete.");
