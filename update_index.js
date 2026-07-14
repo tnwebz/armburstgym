@@ -1,6 +1,6 @@
-const fs = require('fs');
+const fs = require("fs");
 
-let html = fs.readFileSync('index.html', 'utf8');
+let html = fs.readFileSync("index.html", "utf8");
 
 // 1. Hero Background
 html = html.replace(
@@ -8,7 +8,7 @@ html = html.replace(
   `<div class="editable-wrapper" style="position: absolute; inset: 0;">
         <div class="hero-bg" data-editable-id="hero_bg" style="width: 100%; height: 100%;"></div>
         <button class="edit-image-btn" data-target="hero_bg" style="display:none;">📷 Change Image</button>
-      </div>`
+      </div>`,
 );
 
 // 2. Founder 1 (img_2.png)
@@ -17,7 +17,7 @@ html = html.replace(
   `<div class="editable-wrapper" style="display: inline-block;">
               <img src="images/img_2.png" alt="Mr Owner, Founder and Head Coach at ARMBURST GYM Gym Chengalpattu" class="founders-carousel-img" data-index="0" data-editable-id="founder_1" />
               <button class="edit-image-btn" data-target="founder_1" style="display:none;">📷 Change Image</button>
-            </div>`
+            </div>`,
 );
 
 // 3. Founder 2 (p1.png)
@@ -26,7 +26,7 @@ html = html.replace(
   `<div class="editable-wrapper" style="display: inline-block;">
               <img src="images/p1.png" alt="Strategic Lead and Co-founder at ARMBURST GYM unisex gym Chengalpattu" class="founders-carousel-img" data-index="1" data-editable-id="founder_2" />
               <button class="edit-image-btn" data-target="founder_2" style="display:none;">📷 Change Image</button>
-            </div>`
+            </div>`,
 );
 
 // 4. Classes 1 (c1.png)
@@ -35,7 +35,7 @@ html = html.replace(
   `<div class="editable-wrapper" style="display: block; width: 100%; height: 100%;">
               <img src="images/c1.png" alt="Cardio training class at ARMBURST GYM gym near Thimmavaram Chengalpattu" data-editable-id="classes_cardio" style="width: 100%; height: 100%; object-fit: cover;" />
               <button class="edit-image-btn" data-target="classes_cardio" style="display:none;">📷 Change Image</button>
-            </div>`
+            </div>`,
 );
 
 // 5. Classes 2 (s1.png)
@@ -44,16 +44,16 @@ html = html.replace(
   `<div class="editable-wrapper" style="display: block; width: 100%; height: 100%;">
               <img src="images/s1.png" alt="Strength and weight training session at ARMBURST GYM gym Chengalpattu" data-editable-id="classes_strength" style="width: 100%; height: 100%; object-fit: cover;" />
               <button class="edit-image-btn" data-target="classes_strength" style="display:none;">📷 Change Image</button>
-            </div>`
+            </div>`,
 );
 
-// 6. Schedule Modal (sh.png)
+// 6. Schedule Modal (sh.jpeg)
 html = html.replace(
   /<img\s+src="images\/sh\.png"\s+alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable"\s+\/>/g,
   `<div class="editable-wrapper" style="display: inline-block;">
-          <img src="images/sh.png" alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable" data-editable-id="pricing_schedule" />
+          <img src="images/sh.jpeg" alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable" data-editable-id="pricing_schedule" />
           <button class="edit-image-btn" data-target="pricing_schedule" style="display:none;">📷 Change Image</button>
-        </div>`
+        </div>`,
 );
 
 // Now insert the main logic script before </body>
@@ -222,9 +222,9 @@ const inlineCmsScript = `
     </script>
 `;
 
-if (!html.includes('INLINE CMS CORE LOGIC')) {
-  html = html.replace('</body>', inlineCmsScript + '\n  </body>');
+if (!html.includes("INLINE CMS CORE LOGIC")) {
+  html = html.replace("</body>", inlineCmsScript + "\n  </body>");
 }
 
-fs.writeFileSync('index.html', html, 'utf8');
-console.log('index.html updated with inline CMS.');
+fs.writeFileSync("index.html", html, "utf8");
+console.log("index.html updated with inline CMS.");
