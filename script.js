@@ -198,12 +198,15 @@ const contactForm = document.getElementById("contactForm");
 if (contactForm) {
   contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
-
     // Collect values
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
     const email = document.getElementById("email").value;
-    const interest = document.getElementById("interest").value;
+    
+    // Collect checked interests
+    const interestCheckboxes = document.querySelectorAll('input[name="interest[]"]:checked');
+    const interest = Array.from(interestCheckboxes).map(cb => cb.value).join(", ") || "None specified";
+    
     const message = document.getElementById("message").value;
 
     const btn = document.getElementById("submitBtn");
@@ -231,11 +234,11 @@ if (contactForm) {
 
     setTimeout(() => {
       // The Formatting
-      const waMessage = `🦖 ARMBURST GYM GYM INQUIRY\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n✉️ Email: ${email}\n🏋️ Interest: ${interest}\n🎯 Goal: ${message}`;
+      const waMessage = `🦖 ARMBURST GYM INQUIRY\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n✉️ Email: ${email}\n🏋️ Interest: ${interest}\n🎯 Goal: ${message}`;
       const encodedMessage = encodeURIComponent(waMessage);
 
-      // The Redirection
-      const waUrl = `https://wa.me/918838344590?text=${encodedMessage}`;
+      // The Redirection (Updated number)
+      const waUrl = `https://wa.me/919786095401?text=${encodedMessage}`;
       window.open(waUrl, "_blank");
 
       contactForm.reset();

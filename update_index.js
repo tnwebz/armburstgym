@@ -49,7 +49,7 @@ html = html.replace(
 
 // 6. Schedule Modal (sh.jpeg)
 html = html.replace(
-  /<img\s+src="images\/sh\.png"\s+alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable"\s+\/>/g,
+  /<img\s+src="images\/sh\.jpeg"\s+alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable"\s+\/>/g,
   `<div class="editable-wrapper" style="display: inline-block;">
           <img src="images/sh.jpeg" alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable" data-editable-id="pricing_schedule" />
           <button class="edit-image-btn" data-target="pricing_schedule" style="display:none;">📷 Change Image</button>

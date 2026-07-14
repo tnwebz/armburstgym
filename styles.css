@@ -377,7 +377,7 @@ iframe {
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -477,8 +477,8 @@ iframe {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: #000000;
+  background: #000000;
+  color: #ffffff;
   padding: 16px 36px;
   border-radius: var(--radius-xl);
   font-weight: 700;
@@ -486,20 +486,20 @@ iframe {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  box-shadow: var(--shadow-gold);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 0.5px;
 }
 
 .btn-primary:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary .arrow {
   width: 32px;
   height: 32px;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   display: flex;
   align-items: center;

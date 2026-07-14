@@ -526,11 +526,22 @@
         <button class="schedule-modal-close" id="scheduleModalClose">
           &times;
         </button>
-        <img
-          loading="lazy"
-          src="images/sh.png"
-          alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable"
-        />
+        <div class="editable-wrapper" style="display: block; width: 100%; height: 100%">
+          <img
+            loading="lazy"
+            src="images/sh.jpeg"
+            alt="ARMBURST GYM Gym Chengalpattu class schedule and training timetable"
+            data-editable-id="schedule_pricing"
+            style="width: 100%; height: 100%; object-fit: contain"
+          />
+          <button
+            class="edit-image-btn"
+            data-target="schedule_pricing"
+            style="display: none"
+          >
+            📷 Change Image
+          </button>
+        </div>
       </div>
     </div>
 
